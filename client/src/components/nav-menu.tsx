@@ -23,7 +23,7 @@ const MenuItem = (props: MenuItemProps) => {
             to={BASE_URL + item.path}
             className={({ isActive }) =>
                 isActive
-                    ? "w-full block bg-black/80 text-white px-4 py-2 rounded-md transition-all outline-none truncate mb-1"
+                    ? "w-full block bg-gray-100 px-4 py-2 rounded-md transition-all outline-none truncate mb-1"
                     : "w-full block hover:bg-gray-100 px-4 py-2 rounded-md transition-all outline-none truncate mb-1"
             }
             title={item.title}
@@ -48,8 +48,8 @@ const MenuCollapseItem = (props: MenuItemProps) => {
             to={BASE_URL + item.path}
             className={({ isActive }) =>
                 isActive
-                    ? "w-full block bg-gray-300 px-4 pl-10 py-2 rounded-md transition-all relative before:content-[''] before:absolute before:w-0.5 before:h-[90%] before:bg-black/80 before:top-[5%] before:left-5 before:z-50 outline-none truncate"
-                    : "w-full block hover:bg-gray-200 px-4 pl-10 py-2 rounded-md transition-all relative hover:before:content-[''] hover:before:absolute hover:before:w-0.5 hover:before:h-[90%] hover:before:bg-black/60 hover:before:top-[5%] hover:before:left-5 hover:before:z-50 outline-none truncate"
+                    ? "w-full block bg-gray-200 px-4 pl-10 py-2 rounded-md transition-all relative before:content-[''] before:absolute before:w-0.5 before:h-[90%] before:bg-black/60 before:top-[5%] before:left-5 before:z-50 outline-none truncate"
+                    : "w-full block hover:bg-gray-50 px-4 pl-10 py-2 rounded-md transition-all relative hover:before:content-[''] hover:before:absolute hover:before:w-0.5 hover:before:h-[90%] hover:before:bg-black/60 hover:before:top-[5%] hover:before:left-5 hover:before:z-50 outline-none truncate"
             }
             title={item.title}
         >
@@ -86,11 +86,11 @@ const MenuCollapse = (props: MenuItemProps) => {
             >
                 <span>{item.title.toLocaleUpperCase()}</span>
                 <ChevronRight
-                    className={`transition-all ${isOpen ? "rotate-0" : "-rotate-90"}`}
+                    className={`transition-all ${!isOpen ? "rotate-0" : "-rotate-90"}`}
                 />
             </div>
             <div
-                className={`relative before:content-[''] before:absolute before:w-0.5 before:h-[90%] before:bg-black/20 before:top-[5%] before:left-5 before:z-40 overflow-hidden transition-all ${isOpen ? "h-0" : "h-max"}`}
+                className={`relative before:content-[''] before:absolute before:w-0.5 before:h-[90%] before:bg-black/20 before:top-[5%] before:left-5 before:z-40 overflow-hidden transition-all ${!isOpen ? "h-0" : "h-max"}`}
             >
                 {item.subMenu.map((item) => {
                     if (item.type === "item") {
