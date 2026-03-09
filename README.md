@@ -23,7 +23,7 @@ A simple and practical API documentation generator for Express.js.
 ## Installation
 
 ```bash
-npm install api-docs
+npm install hasancode-api-docs
 ```
 
 If you use TypeScript decorators, enable these in your `tsconfig.json`:
