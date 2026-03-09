@@ -28,7 +28,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Mehedi01616720009/api-docs"
+        "url": "git+https://github.com/Mehedi01616720009/api-docs.git"
     },
     "homepage": "https://github.com/Mehedi01616720009/api-docs#readme",
     "bugs": {
