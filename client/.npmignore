@@ -1,0 +1,3 @@
+# Override client/.gitignore during npm pack so built frontend assets can be published.
+!dist/
+!dist/**

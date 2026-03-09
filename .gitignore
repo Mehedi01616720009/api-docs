@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+client/node_modules/
+example2/node_modules/
+
+# Build outputs (you can choose to include dist/ or not — see note below)
+dist/
+client/dist/
+example2/dist/
+
+# Env files — NEVER commit these
+.env
+.env.local
+.env.*
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*

@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+body {
+    /* font-family: "Fira Code", monospace; */
+    font-family: "Ubuntu", "Lato", sans-serif;
+}
+
+.shiki {
+    margin: 0;
+    padding: 16px;
+}
+
+.line-number {
+    margin-right: 10px;
+    text-align: right;
+    display: inline-block;
+    width: 1.875rem;
+}
+
+.api__path {
+    font-family: "Fira Code", monospace;
+    font-variant-ligatures: normal;
+    font-feature-settings:
+        "liga" 1,
+        "calt" 1;
+}
+
+.main__content h1,
+.main__content h2,
+.main__content h3 {
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+
+.main__content h4,
+.main__content h5,
+.main__content h6 {
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.main__content h1 {
+    font-size: 3rem;
+}
+
+.main__content h2 {
+    font-size: 2rem;
+}
+
+.main__content h3 {
+    font-size: 1.5rem;
+}
+
+.main__content h4 {
+    font-size: 1.125rem;
+}
+
+.main__content h5 {
+    font-size: 0.963rem;
+}
+
+.main__content h6 {
+    font-size: 0.875rem;
+}
+
+.main__content p {
+    margin-bottom: 2.25rem;
+}
+
+.main__content .md__code p {
+    margin-bottom: 1.25rem;
+}
+
+.code__title {
+    font-family: "Playwrite NZ Basic", cursive;
+}
+
+.loading {
+    font-family: "Playwrite NZ Basic", cursive;
+}
+
+.main__content ol,
+.main__content ul {
+    padding-left: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.main__content .note ol,
+.main__content .note ul {
+    margin-bottom: 0;
+}
+
+.main__content ol ol,
+.main__content ol ul,
+.main__content ul ol,
+.main__content ul ul {
+    margin-bottom: 0.25rem;
+}
+
+.main__content ol {
+    list-style-type: decimal;
+}
+
+.main__content ul {
+    list-style-type: square;
+}
+
+.main__content code {
+    font-size: 14px;
+    padding-inline: 5.5px;
+    padding-block: 2.75px;
+    background: #656c7635;
+    border-radius: 6px;
+}
+
+.main__content .shiki code {
+    background: transparent;
+    font-size: 16px;
+    border-radius: 6px;
+    padding: 0px;
+}
+
+.main__content .md__code {
+    margin-bottom: 2.25rem;
+}
+
+.main__content .note .md__code {
+    margin-bottom: 0;
+}
+
+.main__content .no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.main__content hr {
+    color: #00000065;
+    margin-bottom: 1.5rem;
+}
+
+.badge {
+    font-family: "Playwrite NZ Basic", cursive;
+}
+
+.main__content table td p,
+.main__content .md__code table td p {
+    margin: 0;
+}

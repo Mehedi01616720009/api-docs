@@ -1,0 +1,15 @@
+src/
+client/src/
+client/public/
+example/
+example2/
+tsconfig*.json
+vite.config.ts
+client/vite.config.ts
+client/index.html
+*.config.js
+*.config.ts
+.gitignore
+.github/
+*.log
+.env*

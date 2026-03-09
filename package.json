@@ -1,0 +1,55 @@
+{
+    "name": "api-docs",
+    "version": "1.0.0",
+    "description": "A simple and easy to use API documentation generator for Express.js",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc && cd client && tsc -b && vite build",
+        "prepublishOnly": "npm run build"
+    },
+    "files": [
+        "dist/",
+        "client/dist/",
+        "README.md",
+        "LICENSE"
+    ],
+    "keywords": [
+        "api",
+        "documentation",
+        "express",
+        "typescript",
+        "decorators",
+        "swagger",
+        "openapi",
+        "auto-generate"
+    ],
+    "author": "Mehedi Hasan <mehedi01616720009@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Mehedi01616720009/api-docs"
+    },
+    "homepage": "https://github.com/Mehedi01616720009/api-docs#readme",
+    "bugs": {
+        "url": "https://github.com/Mehedi01616720009/api-docs/issues"
+    },
+    "type": "commonjs",
+    "devDependencies": {
+        "@types/express": "^5.0.6",
+        "@types/node": "^25.2.3",
+        "typescript": "^5.9.3"
+    },
+    "dependencies": {
+        "express": "^4.0.0",
+        "fs": "^0.0.1-security",
+        "marked": "^17.0.2",
+        "reflect-metadata": "^0.2.2"
+    },
+    "peerDependencies": {
+        "express": "^4.0.0"
+    },
+    "engines": {
+        "node": ">=20.0.0"
+    }
+}
