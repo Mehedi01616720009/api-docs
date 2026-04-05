@@ -302,9 +302,11 @@ export class ApiDoc {
             // Calculate the absolute base path for the documentation
             // This makes the app portable even when mounted at a prefix
             const mountPath = req.baseUrl || "";
-            const docsPath = this.DOCS_PATH.startsWith("/") ? this.DOCS_PATH : `/${this.DOCS_PATH}`;
+            const docsPath = this.DOCS_PATH.startsWith("/")
+                ? this.DOCS_PATH
+                : `/${this.DOCS_PATH}`;
             const fullPath = (mountPath + docsPath).replace(/\/+$/, "");
-            const baseTag = `<base href="${fullPath}/">`;
+            const baseTag = `<base href="${fullPath}">`;
 
             // Insert or replace base tag
             if (html.includes("<base ")) {
@@ -324,32 +326,32 @@ export class ApiDoc {
             res.send(html);
         } else {
             res.status(404).send(`
-        <html>
-          <head>
-            <title>API Docs - Not Built</title>
-            <style>
-              body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                max-width: 600px;
-                margin: 100px auto;
-                padding: 20px;
-                text-align: center;
-              }
-              h1 { color: #e53e3e; }
-              code {
-                background: #f7fafc;
-                padding: 2px 6px;
-                border-radius: 4px;
-              }
-            </style>
-          </head>
-          <body>
-            <h1>⚠️ Client Not Built</h1>
-            <p>Please run <code>npm run build</code> first.</p>
-            <p><small>Looking at: ${this.clientPath}</small></p>
-          </body>
-        </html>
-      `);
+            <html>
+                <head>
+                    <title>API Docs - Not Built</title>
+                    <style>
+                    body {
+                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                        max-width: 600px;
+                        margin: 100px auto;
+                        padding: 20px;
+                        text-align: center;
+                    }
+                    h1 { color: #e53e3e; }
+                    code {
+                        background: #f7fafc;
+                        padding: 2px 6px;
+                        border-radius: 4px;
+                    }
+                    </style>
+                </head>
+                <body>
+                    <h1>⚠️ Client Not Built</h1>
+                    <p>Please run <code>npm run build</code> first.</p>
+                    <p><small>Looking at: ${this.clientPath}</small></p>
+                </body>
+            </html>
+            `);
         }
     }
 
