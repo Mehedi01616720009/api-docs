@@ -6,18 +6,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/api-docs",
         element: <App />,
     },
     {
-        path: "/:key",
+        path: "/api-docs/:key",
         element: <App />,
     },
-], {
-    // Dynamically set the basename to /api-docs to match server-side requirements
-    // but keep it easily configurable in the future
-    basename: "/api-docs" 
-});
+]);
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>

@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import router from "./routes";
-import { ApiDoc, CODE_THEMES, doc } from "hasancode-api-docs";
+import { ApiDoc, CODE_THEMES, doc } from "../../dist";
 
 // initialize express application
 const app: Application = express();

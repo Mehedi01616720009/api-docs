@@ -82,7 +82,6 @@ export class ApiDoc {
             path.join(__dirname, "../../client/dist"),
             path.join(__dirname, "../client/dist"),
             path.join(__dirname, "../../../client/dist"),
-            // Fallback for some npm structures
             path.join(
                 process.cwd(),
                 "node_modules/hasancode-api-docs/client/dist",
@@ -234,43 +233,27 @@ export class ApiDoc {
     middleware(): Router {
         const router = Router();
 
-        // 1. Direct redirect to overview from the root documentation path
-        // Using 302 (Found) to avoid browser-cached permanent redirects (301)
-        router.get([this.DOCS_PATH, `${this.DOCS_PATH}/`], (req, res) => {
-            const cleanBase = (req.baseUrl + this.DOCS_PATH).replace(/\/+$/, "");
-            res.redirect(302, `${cleanBase}/overview`);
-        });
+        router.use(
+            `${this.DOCS_PATH}/assets`,
+            expressStatic(path.join(this.clientPath, "assets"), {
+                maxAge: "1d",
+                etag: true,
+                fallthrough: false,
+                setHeaders: (res, path) => {
+                    if (path.endsWith(".js")) {
+                        res.setHeader("Content-Type", "application/javascript");
+                    } else if (path.endsWith(".css")) {
+                        res.setHeader("Content-Type", "text/css");
+                    }
+                },
+            }),
+        );
 
-        // 2. Serve config.json
         router.get(
             `${this.DOCS_PATH}/config.json`,
             this.serveConfig.bind(this),
         );
 
-        // 3. Serve static assets with explicit MIME types
-        router.use(
-            `${this.DOCS_PATH}/assets`,
-            (req, res, next) => {
-                const ext = path.extname(req.path).toLowerCase();
-                if (ext === ".js") {
-                    res.setHeader(
-                        "Content-Type",
-                        "application/javascript; charset=utf-8",
-                    );
-                } else if (ext === ".css") {
-                    res.setHeader("Content-Type", "text/css; charset=utf-8");
-                }
-                next();
-            },
-            expressStatic(path.join(this.clientPath, "assets"), {
-                maxAge: "1d",
-                etag: true,
-                index: false,
-                fallthrough: false,
-            }),
-        );
-
-        // 4. Serve the React app
         router.use(this.serveApp.bind(this));
 
         return router;
@@ -306,26 +289,19 @@ export class ApiDoc {
         if (fs.existsSync(indexPath)) {
             let html = fs.readFileSync(indexPath, "utf-8");
 
-            // Calculate the absolute base path for the documentation
-            // This makes the app portable even when mounted at a prefix
-            const mountPath = req.baseUrl || "";
-            const docsPath = this.DOCS_PATH.startsWith("/")
-                ? this.DOCS_PATH
-                : `/${this.DOCS_PATH}`;
-            const fullPath = (mountPath + docsPath).replace(/\/+$/, "");
-            const baseTag = `<base href="${fullPath}/">`;
+            // Inject base tag with trailing slash for proper asset resolution
+            const baseTag = `<base href="${this.DOCS_PATH}/">`;
 
-            // Insert or replace base tag
-            if (html.includes("<base ")) {
+            // Insert base tag right after <head> or before any other tags
+            if (html.includes("<base")) {
+                // Replace existing base tag
                 html = html.replace(/<base[^>]*>/i, baseTag);
             } else {
+                // Insert new base tag
                 html = html.replace(/<head>/i, `<head>${baseTag}`);
             }
 
-            // Also ensure any absolute references in index.html are corrected
-            html = html.replace(/\/api-docs\/assets\//g, "assets/");
-
-            res.setHeader("Content-Type", "text/html; charset=utf-8");
+            res.setHeader("Content-Type", "text/html");
             res.setHeader(
                 "Cache-Control",
                 "no-cache, no-store, must-revalidate",
@@ -333,31 +309,31 @@ export class ApiDoc {
             res.send(html);
         } else {
             res.status(404).send(`
-            <html>
-                <head>
-                    <title>API Docs - Not Built</title>
-                    <style>
-                    body {
-                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                        max-width: 600px;
-                        margin: 100px auto;
-                        padding: 20px;
-                        text-align: center;
-                    }
-                    h1 { color: #e53e3e; }
-                    code {
-                        background: #f7fafc;
-                        padding: 2px 6px;
-                        border-radius: 4px;
-                    }
-                    </style>
-                </head>
-                <body>
-                    <h1>⚠️ Client Not Built</h1>
-                    <p>Please run <code>npm run build</code> first.</p>
-                    <p><small>Looking at: ${this.clientPath}</small></p>
-                </body>
-            </html>
+                <html>
+                    <head>
+                        <title>API Docs - Not Built</title>
+                        <style>
+                        body {
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                            max-width: 600px;
+                            margin: 100px auto;
+                            padding: 20px;
+                            text-align: center;
+                        }
+                        h1 { color: #e53e3e; }
+                        code {
+                            background: #f7fafc;
+                            padding: 2px 6px;
+                            border-radius: 4px;
+                        }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>⚠️ Client Not Built</h1>
+                        <p>Please run <code>npm run build</code> first.</p>
+                        <p><small>Looking at: ${this.clientPath}</small></p>
+                    </body>
+                </html>
             `);
         }
     }
