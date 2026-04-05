@@ -17,7 +17,8 @@ export default function App() {
 
     useEffect(() => {
         const fetchConfig = async () => {
-            const response = await fetch("/api-docs/config.json");
+            // Using relative path to be portable
+            const response = await fetch("./config.json");
             if (!response.ok) {
                 throw new Error("Failed to load configuration");
             }
@@ -30,7 +31,8 @@ export default function App() {
     }, []);
 
     if (!key) {
-        return <Navigate to={"/api-docs/overview"} replace />;
+        // Use relative path for internal navigation
+        return <Navigate to={"overview"} replace />;
     }
 
     if (loading) {
