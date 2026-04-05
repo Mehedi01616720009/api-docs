@@ -306,7 +306,7 @@ export class ApiDoc {
                 ? this.DOCS_PATH
                 : `/${this.DOCS_PATH}`;
             const fullPath = (mountPath + docsPath).replace(/\/+$/, "");
-            const baseTag = `<base href="${fullPath}">`;
+            const baseTag = `<base href="${fullPath}/">`;
 
             // Insert or replace base tag
             if (html.includes("<base ")) {
