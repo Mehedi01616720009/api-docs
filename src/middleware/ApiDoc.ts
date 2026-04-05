@@ -234,7 +234,14 @@ export class ApiDoc {
     middleware(): Router {
         const router = Router();
 
-        // 1. Serve config.json
+        // 1. Direct redirect to overview from the root documentation path
+        // Using 302 (Found) to avoid browser-cached permanent redirects (301)
+        router.get([this.DOCS_PATH, `${this.DOCS_PATH}/`], (req, res) => {
+            const cleanBase = (req.baseUrl + this.DOCS_PATH).replace(/\/+$/, "");
+            res.redirect(302, `${cleanBase}/overview`);
+        });
+
+        // 2. Serve config.json
         router.get(
             `${this.DOCS_PATH}/config.json`,
             this.serveConfig.bind(this),

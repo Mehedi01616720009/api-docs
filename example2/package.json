@@ -21,6 +21,6 @@
     },
     "dependencies": {
         "express": "^5.2.1",
-        "hasancode-api-docs": "^1.0.14"
+        "hasancode-api-docs": "^1.0.15"
     }
 }
