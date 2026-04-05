@@ -41,7 +41,7 @@ If you use TypeScript decorators, enable these in your `tsconfig.json`:
 
 ```ts
 import express from "express";
-import { ApiDoc, doc } from "api-docs";
+import { ApiDoc, doc } from "hasancode-api-docs";
 
 const app = express();
 app.use(express.json());
@@ -82,7 +82,7 @@ app.listen(5000, () => {
 This is the lightweight style (similar to `example/server.js`).
 
 ```ts
-import { doc } from "api-docs";
+import { doc } from "hasancode-api-docs";
 
 doc({
     method: "get",
@@ -120,7 +120,7 @@ doc({
 This is the advanced object-schema style (similar to `example2/src/app.ts`).
 
 ```ts
-import { doc } from "api-docs";
+import { doc } from "hasancode-api-docs";
 
 doc({
     method: "patch",
@@ -219,7 +219,7 @@ import {
     Description,
     Tags,
     Auth,
-} from "api-docs";
+} from "hasancode-api-docs";
 
 class UserController {
     @Tags("Users")
@@ -359,7 +359,7 @@ new ApiDoc({
 Import and use `CODE_THEMES`:
 
 ```ts
-import { CODE_THEMES } from "api-docs";
+import { CODE_THEMES } from "hasancode-api-docs";
 
 const apiDocs = new ApiDoc({
     title: "My API",

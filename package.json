@@ -1,6 +1,6 @@
 {
     "name": "hasancode-api-docs",
-    "version": "1.0.4",
+    "version": "1.0.6",
     "description": "A simple and easy to use API documentation generator for Express.js",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -16,6 +16,8 @@
     ],
     "keywords": [
         "api",
+        "api-doc",
+        "api-docs",
         "documentation",
         "express",
         "typescript",
@@ -47,7 +49,7 @@
         "reflect-metadata": "^0.2.2"
     },
     "peerDependencies": {
-        "express": "^4.0.0"
+        "express": ">=4.0.0"
     },
     "engines": {
         "node": ">=20.0.0"
