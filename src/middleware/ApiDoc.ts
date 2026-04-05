@@ -83,7 +83,10 @@ export class ApiDoc {
             path.join(__dirname, "../client/dist"),
             path.join(__dirname, "../../../client/dist"),
             // Fallback for some npm structures
-            path.join(process.cwd(), "node_modules/hasancode-api-docs/client/dist"),
+            path.join(
+                process.cwd(),
+                "node_modules/hasancode-api-docs/client/dist",
+            ),
         ];
 
         for (const testPath of possiblePaths) {
@@ -234,7 +237,7 @@ export class ApiDoc {
         // 1. Handle trailing slash redirect for the root path
         // This is crucial for relative asset resolution
         router.get(this.DOCS_PATH, (req, res) => {
-            res.redirect(301, req.originalUrl + "/");
+            res.redirect(301, req.originalUrl);
         });
 
         // 2. Serve config.json
@@ -249,7 +252,10 @@ export class ApiDoc {
             (req, res, next) => {
                 const ext = path.extname(req.path).toLowerCase();
                 if (ext === ".js") {
-                    res.setHeader("Content-Type", "application/javascript; charset=utf-8");
+                    res.setHeader(
+                        "Content-Type",
+                        "application/javascript; charset=utf-8",
+                    );
                 } else if (ext === ".css") {
                     res.setHeader("Content-Type", "text/css; charset=utf-8");
                 }
