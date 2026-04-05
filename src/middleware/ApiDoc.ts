@@ -228,7 +228,8 @@ export class ApiDoc {
         );
 
         // ── 3. Serve React app (catch-all, MUST come last) ───────────
-        router.get(`${this.DOCS_PATH}*`, this.serveApp.bind(this));
+        // router.get(`${this.DOCS_PATH}*`, this.serveApp.bind(this));
+        router.use(this.serveApp.bind(this));
 
         return router;
     }
