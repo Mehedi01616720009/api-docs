@@ -231,13 +231,19 @@ export class ApiDoc {
     middleware(): Router {
         const router = Router();
 
-        // 1. Serve config.json
+        // 1. Handle trailing slash redirect for the root path
+        // This is crucial for relative asset resolution
+        router.get(this.DOCS_PATH, (req, res) => {
+            res.redirect(301, req.originalUrl + "/");
+        });
+
+        // 2. Serve config.json
         router.get(
             `${this.DOCS_PATH}/config.json`,
             this.serveConfig.bind(this),
         );
 
-        // 2. Serve static assets with explicit MIME types
+        // 3. Serve static assets with explicit MIME types
         router.use(
             `${this.DOCS_PATH}/assets`,
             (req, res, next) => {
@@ -257,7 +263,7 @@ export class ApiDoc {
             }),
         );
 
-        // 3. Serve the React app
+        // 4. Serve the React app
         router.use(this.serveApp.bind(this));
 
         return router;
@@ -293,7 +299,8 @@ export class ApiDoc {
         if (fs.existsSync(indexPath)) {
             let html = fs.readFileSync(indexPath, "utf-8");
 
-            // Use relative base tag so it works when mounted at any prefix
+            // Inject base tag with trailing slash for proper asset resolution
+            // We use relative './' which depends on the URL ending with a slash
             const baseTag = `<base href="./">`;
 
             // Insert or replace base tag
@@ -302,6 +309,9 @@ export class ApiDoc {
             } else {
                 html = html.replace(/<head>/i, `<head>${baseTag}`);
             }
+
+            // Also ensure any absolute references in index.html are corrected if they slipped through
+            html = html.replace(/\/api-docs\/assets\//g, "assets/");
 
             res.setHeader("Content-Type", "text/html; charset=utf-8");
             res.setHeader(
